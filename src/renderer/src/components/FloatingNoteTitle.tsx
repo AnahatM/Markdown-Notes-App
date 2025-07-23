@@ -1,3 +1,5 @@
+import { selectedNoteAtom } from "@renderer/store";
+import { useAtomValue } from "jotai";
 import { ComponentProps, JSX } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -9,11 +11,11 @@ import { twMerge } from "tailwind-merge";
  * @returns A JSX element displaying the note title.
  */
 export const FloatingNoteTitle = ({ className, ...props }: ComponentProps<"div">): JSX.Element => {
-  const title = "Note Title";
+  const selectedNote = useAtomValue(selectedNoteAtom);
 
   return (
     <div className={twMerge("flex justify-center", className)} {...props}>
-      <span className="text-[#6f6f78]">{title}</span>
+      <span className="text-[#6f6f78]">{selectedNote ? selectedNote.title : "Markdown Notes"}</span>
     </div>
   );
 };

@@ -11,7 +11,7 @@ import { twMerge } from "tailwind-merge";
  */
 export const ActionButtonsRow = ({ className, ...props }: ComponentProps<"div">): JSX.Element => {
   return (
-    <div className={twMerge("flex flex-col gap-2", className)} {...props}>
+    <div className={twMerge("flex flex-row gap-2", className)} {...props}>
       <NewNoteButton />
       <DeleteNoteButton />
     </div>

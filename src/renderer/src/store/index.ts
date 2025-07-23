@@ -24,7 +24,7 @@ export const selectedNoteAtom = atom((get) => {
 
   // If no note is selected, return null
   // This prevents errors when trying to access properties of a null object.
-  if (!selectedNoteIndex) return null;
+  if (selectedNoteIndex == null) return null;
 
   // If a note is selected, get the corresponding note object by index
   const selectedNote = notes[selectedNoteIndex];
