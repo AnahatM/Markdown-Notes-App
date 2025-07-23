@@ -31,3 +31,46 @@ export const selectedNoteAtom = atom((get) => {
 
   return { ...selectedNote, content: `hello from ${selectedNoteIndex}` };
 });
+
+/**
+ * Atom to create a new empty note.
+ * It prompts the user to create a note and updates the notes state accordingly.
+ */
+export const createEmptyNoteAtom = atom(null, async (get, set) => {
+  const notes = get(notesAtom);
+  if (!notes) return;
+
+  const title = `Note ${notes.length + 1}`;
+  if (!title) return;
+
+  // Create a new note object with the given title and current timestamp
+  const newNote: NoteInfo = {
+    title,
+    lastEditTimeMs: Date.now()
+  };
+
+  // Call the context method to create the note in the backend, display it in front of the other notes
+  set(notesAtom, [newNote, ...notes.filter((note) => note.title !== newNote.title)]);
+  // Set the newly created note as the selected note which is first in the list
+  set(selectedNoteIndexAtom, 0);
+});
+
+/**
+ * Atom to delete the currently selected note.
+ * It removes the note from the notes state and deselects any note.
+ */
+export const deleteNoteAtom = atom(null, async (get, set) => {
+  const notes = get(notesAtom);
+  const selectedNote = get(selectedNoteAtom);
+
+  if (!selectedNote || !notes) return;
+
+  // Filter out the deleted note
+  set(
+    notesAtom,
+    notes.filter((note) => note.title !== selectedNote.title)
+  );
+
+  // Deselect any note
+  set(selectedNoteIndexAtom, null);
+});

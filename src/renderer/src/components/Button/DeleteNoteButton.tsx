@@ -1,4 +1,6 @@
 import { ActionButton, ActionButtonProps } from "@/components";
+import { deleteNoteAtom } from "@/store";
+import { useSetAtom } from "jotai";
 import { JSX } from "react";
 import { FaRegTrashCan } from "react-icons/fa6";
 
@@ -11,8 +13,15 @@ import { FaRegTrashCan } from "react-icons/fa6";
  * @returns DeleteNoteButton JSX Element
  */
 export const DeleteNoteButton = ({ ...props }: ActionButtonProps): JSX.Element => {
+  const deleteNote = useSetAtom(deleteNoteAtom);
+
+  const handleDeletion = (): void => {
+    deleteNote();
+  };
+
   return (
     <ActionButton
+      onClick={handleDeletion}
       icon={<FaRegTrashCan className="w-4 h-4 text-zinc-300" />}
       label="Delete"
       {...props}
