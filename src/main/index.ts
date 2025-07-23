@@ -1,4 +1,6 @@
+import { getNotes } from "@/lib";
 import { electronApp, is, optimizer } from "@electron-toolkit/utils";
+import { GetNotes } from "@shared/types";
 import { app, BrowserWindow, ipcMain, shell } from "electron";
 import { join } from "path";
 import icon from "../../resources/icon.png?asset";
@@ -7,8 +9,8 @@ function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     // Base options for the window
-    width: 900,
-    height: 670,
+    width: 1000,
+    height: 700,
     minWidth: 550,
     minHeight: 300,
     show: false,
@@ -72,6 +74,8 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on("ping", () => console.log("pong"));
+
+  ipcMain.handle("getNotes", (_, ...args: Parameters<GetNotes>) => getNotes(...args));
 
   createWindow();
 

@@ -1,11 +1,34 @@
-import { notesMock } from "@/store/mocks";
 import { NoteInfo } from "@shared/models";
 import { atom } from "jotai";
+import { unwrap } from "jotai/utils";
+
+/**
+ * This function loads notes from the backend using the context API.
+ * It retrieves the notes and sorts them by the last edit time in descending order.
+ * This ensures that the most recently edited notes appear first in the list.
+ *
+ * @returns {Promise<NoteInfo[]>} A promise that resolves to an array of NoteInfo objects sorted by last edit time.
+ */
+const loadNotes = async (): Promise<NoteInfo[]> => {
+  const notes = await window.context.getNotes();
+
+  // Sort them by most recent edit time
+  return notes.sort((a, b) => b.lastEditTimeMs - a.lastEditTimeMs);
+};
+
+/**
+ * Atom to manage the asynchronous loading of notes.
+ * It uses the loadNotes function to fetch notes from the backend.
+ * The notes are initially set to a promise that resolves to an array of NoteInfo objects.
+ *
+ * @type {atom<NoteInfo[] | Promise<NoteInfo[]>>}
+ */
+const notesAtomAsync = atom<NoteInfo[] | Promise<NoteInfo[]>>(loadNotes());
 
 /**
  * Atom to manage the state of notes in the application.
  */
-export const notesAtom = atom<NoteInfo[]>(notesMock);
+export const notesAtom = unwrap(notesAtomAsync, (prev) => prev);
 
 /**
  * Atom to manage the currently selected note.
@@ -24,7 +47,7 @@ export const selectedNoteAtom = atom((get) => {
 
   // If no note is selected, return null
   // This prevents errors when trying to access properties of a null object.
-  if (selectedNoteIndex == null) return null;
+  if (selectedNoteIndex == null || !notes) return null;
 
   // If a note is selected, get the corresponding note object by index
   const selectedNote = notes[selectedNoteIndex];
