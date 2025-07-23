@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+#root {
+  /* Full height */
+  height: 100%;
+}
+
+html,
+body {
+  /* Full height */
+  height: 100%;
+  /* Disable selection on desktop app */
+  user-select: none;
+  /* Transparent background */
+  background: transparent;
+  /* Monospaced Font */
+  font-family:
+    ui-monospace, SFMono-Regular, "SF Mono", Monaco, Inconsolata, "Roboto Mono", "Noto Sans Mono",
+    "Droid Sans Mono", "Liberation Mono", Consolas, "Courier New", monospace;
+  -webkit-font-smoothing: antialiased;
+  /* Default text color */
+  color: rgb(218, 218, 218);
+  /* Hide overflow */
+  overflow: hidden;
+}
+
+header.draggable {
+  -webkit-app-region: drag;
+}
+
+button {
+  -webkit-app-region: no-drag;
+}
