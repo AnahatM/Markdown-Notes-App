@@ -7,5 +7,5 @@ import { JSX } from "react";
  * @returns JSX.Element representing the draggable top bar.
  */
 export const DraggableTopBar = (): JSX.Element => {
-  return <header className="draggable absolute inset-0 h-8 bg-transparent" />;
+  return <header className="draggable absolute inset-0 left-62 h-8 bg-transparent" />;
 };

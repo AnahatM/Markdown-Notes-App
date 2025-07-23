@@ -9,6 +9,8 @@ function createWindow(): void {
     // Base options for the window
     width: 900,
     height: 670,
+    minWidth: 550,
+    minHeight: 300,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === "linux" ? { icon } : {}),
@@ -20,7 +22,7 @@ function createWindow(): void {
     // Window Customization Options
     title: "Markdown Notes App",
     center: true,
-    // Window Transparency Options
+    // Window Appearance Options
     vibrancy: "under-window",
     visualEffectState: "active",
     trafficLightPosition: { x: 15, y: 10 },
