@@ -4,15 +4,27 @@ import { ComponentProps, JSX } from "react";
 import { twMerge } from "tailwind-merge";
 
 /**
+ * Props for the NotePreviewList component.
+ * It extends the HTML attributes for a <ul> element and includes an optional onSelect callback.
+ */
+export type NotePreviewListProps = ComponentProps<"ul"> & {
+  onSelect?: () => void;
+};
+
+/**
  * NotePreviewList component renders a list of note previews.
  * Each note is displayed with its title and last edit time.
  *
  * @returns {JSX.Element} The rendered list of note previews.
  */
-export const NotePreviewList = ({ className, ...props }: ComponentProps<"ul">): JSX.Element => {
+export const NotePreviewList = ({
+  className,
+  onSelect,
+  ...props
+}: NotePreviewListProps): JSX.Element => {
   // Use the custom hook to get notes and selected note index
   // The hook also provides a function to handle note selection
-  const { notes, selectedNoteIndex, handleNoteSelect } = useNotesList({});
+  const { notes, selectedNoteIndex, handleNoteSelect } = useNotesList({ onSelect });
 
   // If there are no notes, display a message
   if (!notes || notes.length === 0) {
