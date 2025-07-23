@@ -6,6 +6,7 @@ import icon from "../../resources/icon.png?asset";
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
+    // Base options for the window
     width: 900,
     height: 670,
     show: false,
@@ -15,7 +16,24 @@ function createWindow(): void {
       preload: join(__dirname, "../preload/index.js"),
       sandbox: true,
       contextIsolation: true
-    }
+    },
+    // Window Customization Options
+    title: "Markdown Notes App",
+    center: true,
+    // Window Transparency Options
+    vibrancy: "under-window",
+    visualEffectState: "active",
+    trafficLightPosition: { x: 15, y: 10 },
+    titleBarStyle: "hidden",
+    frame: false,
+    ...(process.platform !== "darwin"
+      ? {
+          titleBarOverlay: {
+            color: "rgba(0, 0, 0, 0)",
+            symbolColor: "#4d4d51"
+          }
+        }
+      : {})
   });
 
   mainWindow.on("ready-to-show", () => {

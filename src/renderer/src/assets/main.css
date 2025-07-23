@@ -12,7 +12,7 @@ body {
   /* Disable selection on desktop app */
   user-select: none;
   /* Transparent background */
-  background: transparent;
+  background: #292831;
   /* Monospaced Font */
   font-family:
     ui-monospace, SFMono-Regular, "SF Mono", Monaco, Inconsolata, "Roboto Mono", "Noto Sans Mono",

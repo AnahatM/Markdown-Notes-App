@@ -1,9 +1,21 @@
-function App(): React.JSX.Element {
+import { Content, DraggableTopBar, RootLayout, Sidebar } from "@/components";
+
+/**
+ * Main application component.
+ * It serves as the entry point for the application layout.
+ *
+ * @returns JSX.Element representing the main application component.
+ */
+const App = (): React.JSX.Element => {
   return (
-    <div className="flex h-full items-center justify-center">
-      <span className="text-4xl text-blue-500">Hello from electron</span>
-    </div>
+    <>
+      <DraggableTopBar />
+      <RootLayout>
+        <Sidebar className="p-2">Sidebar</Sidebar>
+        <Content className="border-l bg-zinc-900/50 border-l-white/20">content</Content>
+      </RootLayout>
+    </>
   );
-}
+};
 
 export default App;

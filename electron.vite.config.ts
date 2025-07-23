@@ -21,11 +21,11 @@ export default defineConfig({
       alias: {
         "@renderer": resolve("src/renderer/src"),
         "@shared": resolve("src/shared"),
-        "@hooks": resolve("src/renderer/src/hooks"),
-        "@assets": resolve("src/renderer/src/assets"),
-        "@store": resolve("src/renderer/src/store"),
-        "@components": resolve("src/renderer/src/components"),
-        "@mocks": resolve("src/renderer/src/mocks")
+        "@/hooks": resolve("src/renderer/src/hooks"),
+        "@/assets": resolve("src/renderer/src/assets"),
+        "@/store": resolve("src/renderer/src/store"),
+        "@/components": resolve("src/renderer/src/components"),
+        "@/mocks": resolve("src/renderer/src/mocks")
       }
     },
     plugins: [react()]
