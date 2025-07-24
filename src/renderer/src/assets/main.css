@@ -16,6 +16,12 @@
     @apply font-mono antialiased text-white;
     /* Window Background */
     background: #292831;
+    background: linear-gradient(
+      150deg,
+      rgba(32, 32, 38, 1) 0%,
+      rgba(15, 12, 36, 1) 35%,
+      rgba(29, 13, 43, 1) 100%
+    );
     /* Disable User Selection */
     @apply select-none;
   }

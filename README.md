@@ -8,6 +8,11 @@
 ![HTML5](https://img.shields.io/badge/-HTML5-05122A?style=flat-square&logo=HTML5)
 ![CSS3](https://img.shields.io/badge/-CSS3-05122A?style=flat-square&logo=CSS3)
 
+## Screenshots
+
+| ![Welcome Screenshot](./images/Welcome%20Screenshot.png) | ![About Screenshot](./images/About%20Screenshot.png) |
+| :------------------------------------------------------: | :--------------------------------------------------: |
+
 ## 🚀 Features
 
 - **Cross-platform desktop app** built with Electron, allowing you to use it on Windows, macOS, and Linux.
