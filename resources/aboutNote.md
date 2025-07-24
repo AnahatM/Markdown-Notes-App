@@ -1,12 +1,6 @@
-# Markdown Notes App
+# About This App ✨
 
-✨ This is a **Markdown Notes App**, built using Electron and React with a modern and minimalist frontend with realtime markdown text editing functionality using the MDXEditor library, and a fully functional storage and auto-saving to the filesystem, and also a state-management system with Jotai.
-
-![React](https://img.shields.io/badge/-React-05122A?style=flat-square&logo=React)
-![Electron](https://img.shields.io/badge/-Electron-05122A?style=flat-square&logo=Electron)
-![TypeScript](https://img.shields.io/badge/-TypeScript-05122A?style=flat-square&logo=TypeScript)
-![HTML5](https://img.shields.io/badge/-HTML5-05122A?style=flat-square&logo=HTML5)
-![CSS3](https://img.shields.io/badge/-CSS3-05122A?style=flat-square&logo=CSS3)
+Welcome to the **Markdown Notes App**! This application is designed to make note-taking simple, fast, and enjoyable.
 
 ## 🚀 Features
 

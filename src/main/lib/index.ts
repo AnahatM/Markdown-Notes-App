@@ -1,4 +1,9 @@
-import { appDirectoryName, fileEncoding, welcomeNoteFilename } from "@shared/constants";
+import {
+  aboutNoteFilename,
+  appDirectoryName,
+  fileEncoding,
+  welcomeNoteFilename
+} from "@shared/constants";
 import { NoteInfo } from "@shared/models";
 import { CreateNote, DeleteNote, GetNotes, ReadNoteFile, WriteNoteFile } from "@shared/types";
 import { dialog } from "electron";
@@ -6,10 +11,44 @@ import { ensureDir, readdir, readFile, remove, stat, writeFile, writeFileSync } 
 import { isEmpty } from "lodash";
 import { homedir } from "os";
 import path from "path";
+import aboutNotesFile from "../../../resources/aboutNote.md?asset";
 import welcomeNoteFile from "../../../resources/welcomeNote.md?asset";
 
+/**
+ * Constructs the root directory path for the application.
+ * It combines the user's home directory with the application's directory name.
+ *
+ * @returns The full path to the application's root directory where notes .md files are stored.
+ */
 export const getRootDirectory = (): string => {
   return `${homedir()}${path.sep}${appDirectoryName}`;
+};
+
+/**
+ * Handles the case when no notes are found in the directory.
+ * It creates a welcome note and an about note, writing their content to the root directory.
+ *
+ * @param notes - The array of note file names to which the new notes will be added.
+ * @returns A promise that resolves when the welcome and about notes are created.
+ */
+const handleEmptyNotes = async (notes: string[]): Promise<void> => {
+  console.info("No notes found in the directory. Creating welcome and about notes.");
+
+  // Read the welcome and about note content
+  const welcomeContent = await readFile(welcomeNoteFile, { encoding: fileEncoding });
+  const aboutContent = await readFile(aboutNotesFile, { encoding: fileEncoding });
+
+  // Write the welcome note to the root directory
+  await writeFile(`${getRootDirectory()}${path.sep}${welcomeNoteFilename}`, welcomeContent, {
+    encoding: fileEncoding
+  });
+
+  // Write the about note to the root directory
+  await writeFile(`${getRootDirectory()}${path.sep}${aboutNoteFilename}`, aboutContent, {
+    encoding: fileEncoding
+  });
+
+  notes.push(welcomeNoteFilename, aboutNoteFilename);
 };
 
 /**
@@ -32,21 +71,7 @@ export const getNotes: GetNotes = async () => {
   const notes = notesFileNames.filter((fileName) => fileName.endsWith(".md"));
 
   // If no notes are found, create a welcome note and add it to the list
-  if (isEmpty(notes)) {
-    console.info("No notes found in the directory. Creating a welcome note.");
-
-    // Read the welcome note content
-    const content = await readFile(welcomeNoteFile, {
-      encoding: fileEncoding
-    });
-
-    // Write the welcome note to the root directory
-    await writeFile(`${rootDirectory}${path.sep}${welcomeNoteFilename}`, content, {
-      encoding: fileEncoding
-    });
-
-    notes.push(welcomeNoteFilename);
-  }
+  if (isEmpty(notes)) await handleEmptyNotes(notes);
 
   return Promise.all(notes.map(getNoteInfoFromFileName));
 };
