@@ -26,3 +26,5 @@ export type ReadNoteFile = (title: NoteInfo["title"]) => Promise<NoteContent>;
  * @returns A promise that resolves when the write operation is complete.
  */
 export type WriteNoteFile = (title: NoteInfo["title"], content: NoteContent) => Promise<void>;
+
+export type CreateNote = () => Promise<NoteInfo["title"] | false>;

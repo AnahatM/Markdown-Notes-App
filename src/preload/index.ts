@@ -1,3 +1,4 @@
+import { createNote } from "@/lib";
 import { GetNotes, ReadNoteFile, WriteNoteFile } from "@shared/types";
 import { contextBridge, ipcRenderer } from "electron";
 
@@ -11,7 +12,9 @@ try {
     readNoteFile: (...args: Parameters<ReadNoteFile>) =>
       ipcRenderer.invoke("readNoteFile", ...args),
     writeNoteFile: (...args: Parameters<WriteNoteFile>) =>
-      ipcRenderer.invoke("writeNoteFile", ...args)
+      ipcRenderer.invoke("writeNoteFile", ...args),
+    createNote: (...args: Parameters<typeof createNote>) =>
+      ipcRenderer.invoke("createNote", ...args)
   });
 } catch (error) {
   console.error("Failed to expose context in main world:", error);

@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 
-import { GetNotes, ReadNoteFile, WriteNoteFile } from "@shared/types";
+import { CreateNote, GetNotes, ReadNoteFile, WriteNoteFile } from "@shared/types";
 
 declare global {
   interface Window {
@@ -9,6 +9,7 @@ declare global {
       getNotes: GetNotes;
       readNoteFile: ReadNoteFile;
       writeNoteFile: WriteNoteFile;
+      createNote: CreateNote;
     };
   }
 }

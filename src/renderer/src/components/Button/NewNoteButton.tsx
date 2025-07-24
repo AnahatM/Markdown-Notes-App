@@ -15,8 +15,8 @@ import { LuFilePenLine } from "react-icons/lu";
 export const NewNoteButton = ({ ...props }: ActionButtonProps): JSX.Element => {
   const createEmptyNote = useSetAtom(createEmptyNoteAtom);
 
-  const handleCreation = (): void => {
-    createEmptyNote();
+  const handleCreation = async (): Promise<void> => {
+    await createEmptyNote();
   };
 
   return (

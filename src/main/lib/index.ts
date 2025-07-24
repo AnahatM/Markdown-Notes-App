@@ -1,11 +1,13 @@
 import { appDirectoryName, fileEncoding } from "@shared/constants";
 import { NoteInfo } from "@shared/models";
-import { GetNotes, ReadNoteFile, WriteNoteFile } from "@shared/types";
-import { ensureDir, readdir, readFile, stat, writeFile } from "fs-extra";
+import { CreateNote, GetNotes, ReadNoteFile, WriteNoteFile } from "@shared/types";
+import { dialog } from "electron";
+import { ensureDir, readdir, readFile, stat, writeFile, writeFileSync } from "fs-extra";
 import { homedir } from "os";
+import path from "path";
 
 export const getRootDirectory = (): string => {
-  return `${homedir()}/${appDirectoryName}`;
+  return `${homedir()}${path.sep}${appDirectoryName}`;
 };
 
 /**
@@ -38,7 +40,7 @@ export const getNotes: GetNotes = async () => {
  * @returns A promise that resolves to a NoteInfo object containing the title and last edit time.
  */
 export const getNoteInfoFromFileName = async (fileName: string): Promise<NoteInfo> => {
-  const fileStats = await stat(`${getRootDirectory()}/${fileName}`);
+  const fileStats = await stat(`${getRootDirectory()}${path.sep}${fileName}`);
 
   return {
     title: fileName.replace(".md", ""),
@@ -56,7 +58,7 @@ export const getNoteInfoFromFileName = async (fileName: string): Promise<NoteInf
 export const readNoteFile: ReadNoteFile = async (fileName: string): Promise<string> => {
   const rootDirectory = getRootDirectory();
 
-  return readFile(`${rootDirectory}/${fileName}.md`, {
+  return readFile(`${rootDirectory}${path.sep}${fileName}.md`, {
     encoding: fileEncoding
   });
 };
@@ -72,9 +74,53 @@ export const readNoteFile: ReadNoteFile = async (fileName: string): Promise<stri
 export const writeNoteFile: WriteNoteFile = async (filename, content) => {
   const rootDirectory = getRootDirectory();
 
-  console.info(`Writing note file: ${rootDirectory}/${filename}.md`);
+  console.info(`Writing note file: ${rootDirectory}${path.sep}${filename}.md`);
 
-  return writeFile(`${rootDirectory}/${filename}.md`, content, {
+  return writeFile(`${rootDirectory}${path.sep}${filename}.md`, content, {
     encoding: fileEncoding
   });
+};
+
+export const createNote: CreateNote = async () => {
+  const rootDirectory = getRootDirectory();
+
+  await ensureDir(rootDirectory);
+
+  const { filePath, canceled } = await dialog.showSaveDialog({
+    title: "New Note",
+    defaultPath: `${rootDirectory}${path.sep}Untitled.md`,
+    buttonLabel: "Create",
+    properties: ["showOverwriteConfirmation"],
+    showsTagField: false,
+    filters: [
+      {
+        name: "Markdown",
+        extensions: ["md"]
+      }
+    ]
+  });
+
+  if (canceled || !filePath) {
+    console.info("Note creation canceled or no file path provided.");
+    return false;
+  }
+
+  const { name: filename, dir: parentDir } = path.parse(filePath);
+
+  if (parentDir !== rootDirectory) {
+    await dialog.showMessageBox({
+      type: "error",
+      title: "Creation Failed",
+      message:
+        "Note file must be created in the application's root directory. Avoid using other folders."
+    });
+    console.warn(`Note file path is not in the expected directory: ${parentDir}`);
+    return false;
+  }
+
+  console.info(`Creating note file: ${filePath}`);
+
+  await writeFileSync(filePath, "");
+
+  return filename;
 };
