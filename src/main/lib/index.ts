@@ -1,7 +1,7 @@
 import { appDirectoryName, fileEncoding } from "@shared/constants";
 import { NoteInfo } from "@shared/models";
-import { GetNotes, ReadNoteFile } from "@shared/types";
-import { ensureDir, readdir, readFile, stat } from "fs-extra";
+import { GetNotes, ReadNoteFile, WriteNoteFile } from "@shared/types";
+import { ensureDir, readdir, readFile, stat, writeFile } from "fs-extra";
 import { homedir } from "os";
 
 export const getRootDirectory = (): string => {
@@ -57,6 +57,24 @@ export const readNoteFile: ReadNoteFile = async (fileName: string): Promise<stri
   const rootDirectory = getRootDirectory();
 
   return readFile(`${rootDirectory}/${fileName}.md`, {
+    encoding: fileEncoding
+  });
+};
+
+/**
+ * Writes content to a note file with the specified title.
+ * It constructs the file path and writes the content with a specific encoding.
+ *
+ * @param filename - The title of the note file (without extension).
+ * @param content - The content to write to the note file.
+ * @returns A promise that resolves when the write operation is complete.
+ */
+export const writeNoteFile: WriteNoteFile = async (filename, content) => {
+  const rootDirectory = getRootDirectory();
+
+  console.info(`Writing note file: ${rootDirectory}/${filename}.md`);
+
+  return writeFile(`${rootDirectory}/${filename}.md`, content, {
     encoding: fileEncoding
   });
 };

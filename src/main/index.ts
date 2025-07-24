@@ -1,6 +1,6 @@
-import { getNotes, readNoteFile } from "@/lib";
+import { getNotes, readNoteFile, writeNoteFile } from "@/lib";
 import { electronApp, is, optimizer } from "@electron-toolkit/utils";
-import { GetNotes, ReadNoteFile } from "@shared/types";
+import { GetNotes, ReadNoteFile, WriteNoteFile } from "@shared/types";
 import { app, BrowserWindow, ipcMain, shell } from "electron";
 import { join } from "path";
 import icon from "../../resources/icon.png?asset";
@@ -77,6 +77,9 @@ app.whenReady().then(() => {
 
   ipcMain.handle("getNotes", (_, ...args: Parameters<GetNotes>) => getNotes(...args));
   ipcMain.handle("readNoteFile", (_, ...args: Parameters<ReadNoteFile>) => readNoteFile(...args));
+  ipcMain.handle("writeNoteFile", async (_, ...args: Parameters<WriteNoteFile>) =>
+    writeNoteFile(...args)
+  );
 
   createWindow();
 

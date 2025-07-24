@@ -1,4 +1,4 @@
-import { NoteInfo } from "@shared/models";
+import { NoteContent, NoteInfo } from "@shared/models";
 import { atom } from "jotai";
 import { unwrap } from "jotai/utils";
 
@@ -113,4 +113,28 @@ export const deleteNoteAtom = atom(null, async (get, set) => {
 
   // Deselect any note
   set(selectedNoteIndexAtom, null);
+});
+
+/**
+ * Atom to save the content of the currently selected note.
+ * It updates the note's content on disk and updates the last edit time.
+ *
+ * @param {NoteContent} newContent - The new content to save for the selected note.
+ */
+export const saveNoteAtom = atom(null, async (get, set, newContent: NoteContent) => {
+  const notes = get(notesAtom);
+  const selectedNote = get(selectedNoteAtom);
+
+  if (!selectedNote || !notes) return;
+
+  // Save on disk
+  await window.context.writeNoteFile(selectedNote.title, newContent);
+
+  // Update saved note's last edit time
+  set(
+    notesAtom,
+    notes.map((note) =>
+      note.title === selectedNote.title ? { ...note, lastEditTimeMs: Date.now() } : note
+    )
+  );
 });

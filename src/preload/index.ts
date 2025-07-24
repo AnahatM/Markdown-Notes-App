@@ -1,4 +1,4 @@
-import { GetNotes, ReadNoteFile } from "@shared/types";
+import { GetNotes, ReadNoteFile, WriteNoteFile } from "@shared/types";
 import { contextBridge, ipcRenderer } from "electron";
 
 if (!process.contextIsolated)
@@ -8,7 +8,10 @@ try {
   contextBridge.exposeInMainWorld("context", {
     locale: navigator.language || "en-US",
     getNotes: (...args: Parameters<GetNotes>) => ipcRenderer.invoke("getNotes", ...args),
-    readNoteFile: (...args: Parameters<ReadNoteFile>) => ipcRenderer.invoke("readNoteFile", ...args)
+    readNoteFile: (...args: Parameters<ReadNoteFile>) =>
+      ipcRenderer.invoke("readNoteFile", ...args),
+    writeNoteFile: (...args: Parameters<WriteNoteFile>) =>
+      ipcRenderer.invoke("writeNoteFile", ...args)
   });
 } catch (error) {
   console.error("Failed to expose context in main world:", error);
