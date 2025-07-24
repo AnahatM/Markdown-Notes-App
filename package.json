@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "A markdown-powered multi-platform desktop note-taking application built with Electron and Vite.",
   "main": "./out/main/index.js",
-  "author": "anahatmudgal.com",
+  "author": "Anahat Mudgal",
   "license": "MIT",
-  "homepage": "https://anahatmudgal.com/development/markdown-notepad",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",
