@@ -2,6 +2,9 @@
 
 ✨ This is a **Markdown Notes App**, built using Electron and React with a modern and minimalist frontend with realtime markdown text editing functionality using the MDXEditor library, and a fully functional storage and auto-saving to the filesystem, and also a state-management system with Jotai.
 
+[![Anahat's Website](https://img.shields.io/badge/Developer_Website-AnahatMudgal.com-blue)](https://AnahatMudgal.com)
+[![Project Website](https://img.shields.io/badge/Project_Webpage-Markdown_Notes-darkgreen)](https://AnahatMudgal.com/development/markdown-notes)
+
 ![React](https://img.shields.io/badge/-React-05122A?style=flat-square&logo=React)
 ![Electron](https://img.shields.io/badge/-Electron-05122A?style=flat-square&logo=Electron)
 ![TypeScript](https://img.shields.io/badge/-TypeScript-05122A?style=flat-square&logo=TypeScript)
@@ -29,7 +32,5 @@
 
 ## 👩‍💻 Developer
 
-_Created by **Anahat Mudgal**._
-
-Visit the developer website at AnahatMudgal.com.
-See the app website at AnahatMudgal.com/development/markdown-notes
+_Created by **[Anahat Mudgal](https://www.AnahatMudgal.com)**._
+See the app [website page](https://www.AnahatMudgal.com/development/markdown-notes).
