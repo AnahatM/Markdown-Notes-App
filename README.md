@@ -5,12 +5,6 @@
 [![Anahat's Website](https://img.shields.io/badge/Developer_Website-AnahatMudgal.com-blue)](https://AnahatMudgal.com)
 [![Project Website](https://img.shields.io/badge/Project_Webpage-Markdown_Notes-darkgreen)](https://AnahatMudgal.com/development/markdown-notes)
 
-![React](https://img.shields.io/badge/-React-05122A?style=flat-square&logo=React)
-![Electron](https://img.shields.io/badge/-Electron-05122A?style=flat-square&logo=Electron)
-![TypeScript](https://img.shields.io/badge/-TypeScript-05122A?style=flat-square&logo=TypeScript)
-![HTML5](https://img.shields.io/badge/-HTML5-05122A?style=flat-square&logo=HTML5)
-![CSS3](https://img.shields.io/badge/-CSS3-05122A?style=flat-square&logo=CSS3)
-
 ## Screenshots
 
 | ![Welcome Screenshot](./images/Welcome%20Screenshot.png) | ![About Screenshot](./images/About%20Screenshot.png) |
@@ -29,6 +23,12 @@
 - **TypeScript**: Adds type safety and better developer experience.
 - **React**: Delivers a dynamic and interactive user interface.
 - **Jotai**: Manages application state efficiently.
+
+![React](https://img.shields.io/badge/-React-05122A?style=flat-square&logo=React)
+![Electron](https://img.shields.io/badge/-Electron-05122A?style=flat-square&logo=Electron)
+![TypeScript](https://img.shields.io/badge/-TypeScript-05122A?style=flat-square&logo=TypeScript)
+![HTML5](https://img.shields.io/badge/-HTML5-05122A?style=flat-square&logo=HTML5)
+![CSS3](https://img.shields.io/badge/-CSS3-05122A?style=flat-square&logo=CSS)
 
 ## 👩‍💻 Developer
 
