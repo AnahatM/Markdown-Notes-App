@@ -1,4 +1,4 @@
-import { GetNotes } from "@shared/types";
+import { GetNotes, ReadNoteFile } from "@shared/types";
 import { contextBridge, ipcRenderer } from "electron";
 
 if (!process.contextIsolated)
@@ -7,7 +7,8 @@ if (!process.contextIsolated)
 try {
   contextBridge.exposeInMainWorld("context", {
     locale: navigator.language || "en-US",
-    getNotes: (...args: Parameters<GetNotes>) => ipcRenderer.invoke("getNotes", ...args)
+    getNotes: (...args: Parameters<GetNotes>) => ipcRenderer.invoke("getNotes", ...args),
+    readNoteFile: (...args: Parameters<ReadNoteFile>) => ipcRenderer.invoke("readNoteFile", ...args)
   });
 } catch (error) {
   console.error("Failed to expose context in main world:", error);

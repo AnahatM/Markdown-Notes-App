@@ -41,7 +41,7 @@ export const selectedNoteIndexAtom = atom<number | null>(null);
  * If no note is selected, it returns null.
  * If a note is selected, it returns the corresponding note object.
  */
-export const selectedNoteAtom = atom((get) => {
+const selectedNoteAtomAsync = atom(async (get) => {
   const notes = get(notesAtom);
   const selectedNoteIndex = get(selectedNoteIndexAtom);
 
@@ -52,8 +52,25 @@ export const selectedNoteAtom = atom((get) => {
   // If a note is selected, get the corresponding note object by index
   const selectedNote = notes[selectedNoteIndex];
 
-  return { ...selectedNote, content: `hello from ${selectedNoteIndex}` };
+  const noteContent = await window.context.readNoteFile(selectedNote.title);
+
+  return { ...selectedNote, content: noteContent };
 });
+
+/**
+ * Atom to manage the selected note in the application.
+ * It unwraps the selectedNoteAtomAsync to get the actual note object.
+ * This allows for easy access to the selected note's properties.
+ */
+export const selectedNoteAtom = unwrap(
+  selectedNoteAtomAsync,
+  (prev) =>
+    prev ?? {
+      title: "",
+      lastEditTimeMs: Date.now(),
+      content: ""
+    }
+);
 
 /**
  * Atom to create a new empty note.

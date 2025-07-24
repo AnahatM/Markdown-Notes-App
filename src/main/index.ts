@@ -1,6 +1,6 @@
-import { getNotes } from "@/lib";
+import { getNotes, readNoteFile } from "@/lib";
 import { electronApp, is, optimizer } from "@electron-toolkit/utils";
-import { GetNotes } from "@shared/types";
+import { GetNotes, ReadNoteFile } from "@shared/types";
 import { app, BrowserWindow, ipcMain, shell } from "electron";
 import { join } from "path";
 import icon from "../../resources/icon.png?asset";
@@ -76,6 +76,7 @@ app.whenReady().then(() => {
   ipcMain.on("ping", () => console.log("pong"));
 
   ipcMain.handle("getNotes", (_, ...args: Parameters<GetNotes>) => getNotes(...args));
+  ipcMain.handle("readNoteFile", (_, ...args: Parameters<ReadNoteFile>) => readNoteFile(...args));
 
   createWindow();
 
